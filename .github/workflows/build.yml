@@ -2,7 +2,7 @@ name: Build
 
 on:
   push:
-    branches: [ main ]
+    branches: [ master ]
 
 jobs:
   build:
@@ -29,11 +29,16 @@ jobs:
           go build -o staticfish-cli main.go
         fi
 
-    - name: Upload artifact
+    - name: Upload Linux artifact
+      if: runner.os == 'Linux'
       uses: actions/upload-artifact@v3
       with:
-        name: staticfish-cli-${{ runner.os }}
-        path: |
-          staticfish-cli
-          staticfish-cli.exe
-        if-no-files-found: ignore
+        name: staticfish-cli-linux
+        path: staticfish-cli
+
+    - name: Upload Windows artifact
+      if: runner.os == 'Windows'
+      uses: actions/upload-artifact@v3
+      with:
+        name: staticfish-cli-windows
+        path: staticfish-cli.exe
