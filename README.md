@@ -9,8 +9,19 @@
 - Scrapes the business's website to find an email address.
 - Detects the technology used to build the website (e.g., WordPress, React, Shopify).
 - Stores all collected information into a PostgreSQL database, avoiding duplicate entries.
+- Dumps collected data to either a `.csv` or `.sql` file.
+- Automated builds for Linux and Windows via GitHub Actions.
 
-## Getting Started
+## Downloads
+
+Pre-built binaries for Linux and Windows are automatically created for every push to the `main` branch. You can download them from the "Actions" tab in the GitHub repository.
+
+1.  Navigate to the **Actions** tab in your GitHub repository.
+2.  Click on the latest successful workflow run under the **Build** workflow.
+3.  At the bottom of the workflow summary page, you will find the **Artifacts** section.
+4.  Download the artifact for your operating system (`staticfish-cli-linux` or `staticfish-cli-windows`).
+
+## Local Development
 
 ### Prerequisites
 
@@ -20,7 +31,7 @@
 
 ### Building the CLI
 
-To build the application, run the provided shell script. This will compile the source code and create an executable file named `staticfish-cli` in the project root.
+To build the application locally, run the provided shell script. This will compile the source code and create an executable file named `staticfish-cli` in the project root.
 
 ```bash
 ./build.sh
@@ -28,11 +39,11 @@ To build the application, run the provided shell script. This will compile the s
 
 ## Usage
 
-The primary functionality is handled by the `google-search` subcommand.
+The CLI has two primary subcommands: `google-search` and `dump`.
 
 ### `google-search`
 
-This command executes the search and data collection process. It requires three flags to operate: your Google Maps API key and the credentials for your PostgreSQL database.
+This command executes the search and data collection process.
 
 #### Flags
 
@@ -44,8 +55,6 @@ This command executes the search and data collection process. It requires three 
 
 #### Example
 
-Here is an example of how to run the `google-search` command. Replace the placeholder values with your actual credentials.
-
 ```bash
 ./staticfish-cli google-search \
   --api="AIzaSy...YOUR_GOOGLE_MAPS_API_KEY" \
@@ -54,8 +63,6 @@ Here is an example of how to run the `google-search` command. Replace the placeh
   --query="Bookstores in Manchester" \
   --pages=5
 ```
-
-Upon execution, the tool will begin fetching data and logging its progress to the console, indicating which businesses are being processed.
 
 ### `dump`
 
