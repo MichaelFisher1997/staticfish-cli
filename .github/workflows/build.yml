@@ -22,6 +22,7 @@ jobs:
         go-version: '1.18'
 
     - name: Build
+      shell: bash
       run: |
         if [ "${{ runner.os }}" == "Windows" ]; then
           go build -o staticfish-cli.exe main.go
